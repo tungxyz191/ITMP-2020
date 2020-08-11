@@ -9,9 +9,11 @@
 <body class="paper">
 	<div id="app">
 		<input type="number" v-model="n">
+		<input type="number" v-model="row">
 		<div class="space"></div>
 		<h3>สูตรคูณเเม่ {{n}}</h3>
-		<h4 v-for="i in 12">
+		<h5>แม่ก่อนหน้า = {{before_n}}</h5>
+		<h4 class="row" v-for="i in r">
 		{{n}} x {{i}} = {{x(i)}}
 	</h4>
 		
@@ -21,7 +23,9 @@
 		let app = new Vue({
 			el:'#app',
 			data:{
-				n:2
+				n:2,
+				before_n:1,
+				row:12
 			},
 			methods: {
 				x: function(row) {
@@ -29,6 +33,9 @@
 				}
 			},
 			computed: {
+				r: function(){
+					return parseInt(this.row)
+				},
 				x2: function(){
 					return this.n*2
 				},
@@ -61,7 +68,12 @@
 				},
 				x12: function(){
 					return this.n*12
-				},
+				}
+			},
+			watch: {
+				n: function(a,b){
+					this.before_n = b
+				}
 			}
 		});
 	</script>
