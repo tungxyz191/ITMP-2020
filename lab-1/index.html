@@ -18,9 +18,9 @@
 		<h3 class="row" v-for="i in r">
 		{{n}} x {{i}} = {{x(i)}}
 	</h3>
-		
+		<h1> ผลรวม = {{summ(row)}}</h1>
 	</div>
-
+		
 	<script>
 		let app = new Vue({
 			el:'#app',
@@ -32,6 +32,13 @@
 			methods: {
 				x: function(row) {
 					return this.n*row
+				},
+				summ: function(row){
+					let sum = 0
+					for(let i=1;i<=row;i++){
+						sum += this.n*i
+					}
+					return sum
 				}
 			},
 			computed: {
