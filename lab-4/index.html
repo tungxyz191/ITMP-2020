@@ -21,9 +21,10 @@
 				'--h':h,
 				'--l':l+'%',
 			}"
-				:data-pick="i == pick"
-				@click="check(i == pick)"
-				></a-dot>
+				:data-pick="i == pick" 
+				@click="check(i == pick)"> 
+			</a-dot>
+				
 			</main>
 		</section>
 		<section id="canvas_footer">
@@ -32,21 +33,18 @@
 			</div>
 		</section>
 	</div>
-
 	<script>
 		let picklight = "20%" //เลือกว่ารอบนี้ อันพิเศษจะมีความสว่าง 20%
-		document.registerElement('a-dot') //ให้ vue รู้จัก a-dot
 
 		function rand(start,stop){//สร้างฟังก์ชัน random ไว้ใช้
 			let shift = (stop-start)+1
 			return Math.floor(Math.random()*100%shift)+start
 		}
-
 		let app = new Vue({
 			el:'#canvas',
 			data:{
 				row:2, //จำนวนแถวที่จะมีในรอบนี้
-				h:380, // hue ในรอบนี้
+				h:120, // hue ในรอบนี้
 				time:10, //เวลาเริ่มต้น
 				score:0, //คะแนนเริ่มต้น
 				pick:1, //หมายเลขวงกลมที่จะสีแตกต่างจากก้อนอื่นๆ
@@ -55,9 +53,31 @@
 			methods: {
 				check: function(e){
 					console.log(e)
-					console.log(e.target)
-					console.log(e.target.dataset.pick)
+					if (e === true){
+						app.correct()
+					}
+					else{
+						app.incorrect()
+					}
+					
+				},
+				correct: function(){
+					this.row = rand(2,9)
+					this.pick = rand(1,this.row*this.row)
+					this.score+=2
+					this.time++
+					this.h = rand(0,359)
+					this.l = rand(40,50)
+					console.log('Correct!')
+
+				},
+				incorrect: function(){
+					this.score-=5
+					this.time-=2
+					console.log('Incorrect!')
+
 				}
+
 			}
 		})
 		//ทำให้แคนวาสมี --picklight ตามที่กำหนดไว้ข้างบนนี้
