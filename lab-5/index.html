@@ -21,7 +21,7 @@
 				:data-pst="i"></div>
 				<div class="box _toggle" data-pst="10" data-isrightarrow="1"></div>
 
-				<div class="box _fruit" :data-pst="f.pst" v-for="f in fruits"></div>
+				<div class="box _fruit" :data-pst="f.pst" v-for="f in fruits" :data-type="f.type"></div>
 
 				<div class="box _origin"></div>
 				<div class="box _12" data-pst="12"></div>
@@ -30,7 +30,7 @@
 			</main>
 		</section>
 		<section id="canvas_footer">
-			<div v-if="play" class="btn" id="toggle" @click="click">
+			<div v-if="play" class="btn" id="toggle" @click="toggle">
 				เปลี่ยนผลไม้
 			</div>
 			<div v-if="!play" class="btn" id="endgame">
@@ -57,11 +57,21 @@
 				time:0,
 				score:0,
 				fruits:[
-					{id:1,type:'red',pst:6,run:true,step:1},
+					{id:1,type:'red',pst:0,run:true,step:1},
 					{id:2,type:'yellow',pst:3,run:true,step:1},
+					
 				]
 			},
-			methods:{},
+			methods:{
+				toggle: function(){
+					if(this.isRightArrow == 1){
+						this.isRightArrow = 0
+					}else{
+						this.isRightArrow = 1
+					}
+					console.log(this.isRightArrow)
+				}
+			},
 			computed:{},
 			watch:{
 				time: function(x){
@@ -75,7 +85,10 @@
 					}
 					//console.log(x)
 				}
+
 			}
+
+
 		})
 		let playing = setInterval(function(){
 			app.time++;
