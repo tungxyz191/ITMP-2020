@@ -101,7 +101,7 @@ div.box{
 	border: 3px solid #fffc;
 	transform: scale(.6);
 }
-.box._fruit[data-type="11"]{
+.box._fruit[data-type="red"]{
 	background-color: red;
 }
 
